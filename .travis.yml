@@ -5,4 +5,3 @@ dist: trusty
 
 jdk:
   - oraclejdk8
-  - openjdk7
