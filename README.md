@@ -19,7 +19,7 @@ With the popularity of distributed systems, the stability between services is be
 Sentinel has following features:
 
 * **Rich applicable scenarios**
-Sentinel has been wildly used in Alibaba's, and has covered almost all the core-scenarios in Double -11 Shopping Festivals in the past 10 years. Lots of scenario, such as “Miaosha”, which needs to limit burst flow traffic to meet the system capacity; message peaks and valley fills; degrade un reliable downstream applications, etc.
+Sentinel has been wildly used in Alibaba, and has covered almost all the core-scenarios in Double -11 Shopping Festivals in the past 10 years. Lots of scenario, such as “Miaosha”, which needs to limit burst flow traffic to meet the system capacity; message peaks and valley fills; degrade un reliable downstream applications, etc.
 
 * **Integrated monitor module**
 Sentinel also provides the most real-time monitoring function, you can see the runtime information of a single machine in real-time, and the summary runtime info of a cluster less than  500 nodes
@@ -27,9 +27,13 @@ Sentinel also provides the most real-time monitoring function, you can see the r
 * **Easy extension point**
 Sentinel provides easy-to-use extension points that allow you to quickly customize your logic by implementing extension points. For example, custom rule management, adapting data sources, and so on.
 
-## Download Library
+## "Hello world"
+Below is a simple demo that guides new users to use Sentinel in just 3 steps. It also shows how to monitor this demo using the dashboard.
 
-Example for Maven:
+## 1.Download Library
+**Note:** Sentinel requires Java 6 or later.
+
+If your application is build in maven, just add following code in pom.xml
 
 ```xml
 <dependency>
@@ -39,11 +43,11 @@ Example for Maven:
 </dependency>
 ```
 
-Sentinel requires Java 6 or later.
+If not, you can download JAR in [maven](https://mvnrepository.com/artifact/com.alibaba)
 
-## "Hello world"
 
-Frist wrap code snippet via sentinel api: `SphU.entry("RESOURCENAME")` and `entry.exit()`. 
+## 2.Define Resource
+Wrap code snippet via sentinel api: `SphU.entry("RESOURCENAME")` and `entry.exit()`. In below example, it is `System.out.println("hello world");`
 
 ```java
 Entry entry = null;
@@ -63,10 +67,10 @@ try {
 }
 ```
 
-After above steps, you can use sentinel now. By default, we will provide adapter to do this for popular frameworks. 
+After above 2 steps, the code modification is done.  
 
-## Define Rules
-
+## 3.Define Rules
+If we want to limit the access times of resource, we can define rules. Below code define a rule that limit access to the reource to 20 times per second to the maximum. 
 ```java
     List<FlowRule> rules = new ArrayList<FlowRule>();
     FlowRule rule = new FlowRule();
@@ -78,9 +82,9 @@ After above steps, you can use sentinel now. By default, we will provide adapter
 ```
 
 
-## Result
+## 4. Check the Result
 
-And you can see following records in `[user dir]\csp\logs\${appName}-metrics.log.xxx`
+After running the demo for a while, you can see following records in `[user dir]\csp\logs\${appName}-metrics.log.xxx`
 ```
 |--timestamp-|------date time----|--resource-|p |block|s |e|rt
 1529998904000|2018-06-26 15:41:44|hello world|20|0    |20|0|0
@@ -93,6 +97,7 @@ And you can see following records in `[user dir]\csp\logs\${appName}-metrics.log
 p for incoming reqeust, block for intercepted by rules, success for success handled, e for exception, rt for average response time(ms)
 
 ```
+This shows that the demo can print "hello world" 20 times per second
 
 More examples and information can be found in the [How To Use](https://github.com/alibaba/Sentinel/wiki/How-to-Use) section.
 
@@ -100,66 +105,8 @@ How it works can be found in [How it works](https://github.com/alibaba/Sentinel/
 
 Samples can be found in the [demo](https://github.com/alibaba/Sentinel/tree/master/sentinel-demo) module.
 
-## Start Dashboard
-Sentinel also has a simple dashboad, which can monitor the cliets, and configure the rules.
-
-1. Download [Sentinel-Dashboard](https://github.com/alibaba/Sentinel/tree/master/sentinel-dashboard) module
-2. Run command to package this module:
-
-```bash
-$ mvn clean package
-```
-
-3. Start dashboard
-
-```bash
-$ java -Dserver.port=8080 \
--Dcsp.sentinel.dashboard.server=localhost:8080 \
--Dproject.name=sentinel-dashboard \
--jar target/sentinel-dashboard.jar
-```
-
-4. Include sentinel client in your application by mvn or download this library:
-
-```xml
-<dependency>
-    <groupId>com.alibaba.csp</groupId>
-    <artifactId>sentinel-transport-simple-http</artifactId>
-    <version>x.y.z</version>
-</dependency>
-```
-
-If you need to download the jars instead of using a build system, create a Maven pom file like this with the desired version:
-
-```xml
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.alibaba</groupId>
-    <artifactId>download-sentine</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>Simple POM to download sentinel-core and dependencies</name>
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-transport-simple-http</artifactId>
-            <version>x.y.z</version>
-            <scope/>
-        </dependency>
-    </dependencies>
-</project>
-```
-
-Then execute:
-
-```bash
-mvn -f download-sentinel-pom.xml dependency:copy-dependencies
-```
-5. Add JVM parameter `-Dcsp.sentinel.dashboard.server=consoleIp:port` when you start your application
-
-6. Trigger your resource
-
-After above steps, you can check your application in "Machnes" and resources runtime infomation in your dashboard.
+## 5.Start Dashboard
+Sentinel also provides a simple dashboad, which can monitor the cliets, and configure the rules in real time.
 
 More details please refer to: [Dashboard](https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0)
 
@@ -173,6 +120,3 @@ For bugs, questions and discussions please use the [GitHub Issues](https://githu
 
 Contact us: sentinel@linux.alibaba.com
 
-Twitter:@AlibabaSentinel
-
-Weibo:
