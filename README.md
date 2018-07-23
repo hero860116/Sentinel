@@ -18,13 +18,13 @@ With the popularity of distributed systems, the stability between services is be
 
 Sentinel has following features:
 
-* ** Rich applicable scenarios **
+* **Rich applicable scenarios**
 Sentinel has been wildly used in Alibaba's, and has covered almost all the core-scenarios in Double -11 Shopping Festivals in the past 10 years. Lots of scenario, such as “Miaosha”, which needs to limit burst flow traffic to meet the system capacity; message peaks and valley fills; degrade un reliable downstream applications, etc.
 
-* ** Integrated monitor module **
+* **Integrated monitor module**
 Sentinel also provides the most real-time monitoring function, you can see the runtime information of a single machine in real-time, and the summary runtime info of a cluster less than  500 nodes
 
-* ** Easy extension point **
+* **Easy extension point**
 Sentinel provides easy-to-use extension points that allow you to quickly customize your logic by implementing extension points. For example, custom rule management, adapting data sources, and so on.
 
 ## Download Library
