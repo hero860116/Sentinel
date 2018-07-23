@@ -30,7 +30,7 @@ Sentinel provides easy-to-use extension points that allow you to quickly customi
 ## "Hello world"
 Below is a simple demo that guides new users to use Sentinel in just 3 steps. It also shows how to monitor this demo using the dashboard.
 
-## 1.Download Library
+### 1.Download Library
 **Note:** Sentinel requires Java 6 or later.
 
 If your application is build in maven, just add following code in pom.xml
@@ -46,7 +46,7 @@ If your application is build in maven, just add following code in pom.xml
 If not, you can download JAR in [maven](https://mvnrepository.com/artifact/com.alibaba)
 
 
-## 2.Define Resource
+### 2.Define Resource
 Wrap code snippet via sentinel api: `SphU.entry("RESOURCENAME")` and `entry.exit()`. In below example, it is `System.out.println("hello world");`
 
 ```java
@@ -69,20 +69,20 @@ try {
 
 After above 2 steps, the code modification is done.  
 
-## 3.Define Rules
+### 3.Define Rules
 If we want to limit the access times of resource, we can define rules. Below code define a rule that limit access to the reource to 20 times per second to the maximum. 
 ```java
-    List<FlowRule> rules = new ArrayList<FlowRule>();
-    FlowRule rule = new FlowRule();
-    rule.setResource("hello world");
-    // set limit qps to 20
-    rule.setCount(20);
-    rules.add(rule);
-    FlowRuleManager.loadRules(rules);
+List<FlowRule> rules = new ArrayList<FlowRule>();
+FlowRule rule = new FlowRule();
+rule.setResource("hello world");
+// set limit qps to 20
+rule.setCount(20);
+rules.add(rule);
+FlowRuleManager.loadRules(rules);
 ```
 
 
-## 4. Check the Result
+### 4. Check the Result
 
 After running the demo for a while, you can see following records in `[user dir]\csp\logs\${appName}-metrics.log.xxx`
 ```
@@ -105,7 +105,7 @@ How it works can be found in [How it works](https://github.com/alibaba/Sentinel/
 
 Samples can be found in the [demo](https://github.com/alibaba/Sentinel/tree/master/sentinel-demo) module.
 
-## 5.Start Dashboard
+### 5.Start Dashboard
 Sentinel also provides a simple dashboad, which can monitor the cliets, and configure the rules in real time.
 
 More details please refer to: [Dashboard](https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0)
