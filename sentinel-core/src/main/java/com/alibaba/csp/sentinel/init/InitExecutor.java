@@ -3,6 +3,7 @@ package com.alibaba.csp.sentinel.init;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.alibaba.csp.sentinel.log.RecordLog;
 
@@ -13,14 +14,14 @@ import com.alibaba.csp.sentinel.log.RecordLog;
  */
 public final class InitExecutor {
 
-    private static volatile boolean initialized = false;
+    private static AtomicBoolean initialized = new AtomicBoolean(false);
 
     /**
      * If one {@link InitFunc} throws an exception, the init process
      * will immediately be interrupted and the application will exit.
      */
     public static void doInit() {
-        if (initialized) {
+        if (initialized.compareAndSet(false, true)) {
             return;
         }
         try {
@@ -32,7 +33,6 @@ public final class InitExecutor {
             for (OrderWrapper w : initList) {
                 w.func.init();
             }
-            initialized = true;
         } catch (Exception ex) {
             RecordLog.info("[Sentinel InitExecutor] Init failed", ex);
             ex.printStackTrace();
