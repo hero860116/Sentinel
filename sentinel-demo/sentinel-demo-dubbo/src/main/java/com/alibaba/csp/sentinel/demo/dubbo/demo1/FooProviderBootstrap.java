@@ -1,4 +1,4 @@
-package com.alibaba.csp.sentinel.demo.dubbo.provider;
+package com.alibaba.csp.sentinel.demo.dubbo.demo1;
 
 import java.util.Collections;
 

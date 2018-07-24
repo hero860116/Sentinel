@@ -1,4 +1,4 @@
-package com.alibaba.csp.sentinel.demo.dubbo.provider;
+package com.alibaba.csp.sentinel.demo.dubbo.demo1;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Eric Zhao
  */
 @Configuration
-@DubboComponentScan("com.alibaba.csp.sentinel.demo.dubbo.provider")
+@DubboComponentScan("com.alibaba.csp.sentinel.demo.dubbo.demo1")
 public class ProviderConfiguration {
 
     @Bean

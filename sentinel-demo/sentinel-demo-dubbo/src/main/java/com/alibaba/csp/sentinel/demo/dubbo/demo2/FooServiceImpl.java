@@ -1,4 +1,4 @@
-package com.alibaba.csp.sentinel.demo.dubbo.provider;
+package com.alibaba.csp.sentinel.demo.dubbo.demo2;
 
 import java.time.LocalDateTime;
 
@@ -14,5 +14,10 @@ public class FooServiceImpl implements FooService {
     @Override
     public String sayHello(String name) {
         return String.format("Hello, %s at %s", name, LocalDateTime.now());
+    }
+
+    @Override
+    public String doAnother() {
+        return LocalDateTime.now().toString();
     }
 }

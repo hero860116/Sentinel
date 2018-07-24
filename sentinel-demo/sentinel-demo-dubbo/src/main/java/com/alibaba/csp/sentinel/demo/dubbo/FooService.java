@@ -5,4 +5,6 @@ package com.alibaba.csp.sentinel.demo.dubbo;
  */
 public interface FooService {
     String sayHello(String name);
+
+    String doAnother();
 }

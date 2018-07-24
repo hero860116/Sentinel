@@ -8,10 +8,14 @@ import com.alibaba.dubbo.config.annotation.Reference;
  */
 public class FooServiceConsumer {
 
-    @Reference(url = "dubbo://127.0.0.1:25758")
+    @Reference(url = "dubbo://127.0.0.1:25758", timeout = 3000)
     private FooService fooService;
 
     public String sayHello(String name) {
         return fooService.sayHello(name);
+    }
+
+    public String doAnother() {
+        return fooService.doAnother();
     }
 }
