@@ -108,7 +108,7 @@ Samples can be found in the [demo](https://github.com/alibaba/Sentinel/tree/mast
 ### 5.Start Dashboard
 Sentinel also provides a simple dashboard, which can monitor the clients, and configure the rules in real time.
 
-More details please refer to: [Dashboard](https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0)
+More details please refer to: [Dashboard](https://github.com/alibaba/Sentinel/wiki/Dashboard)
 
 ## Trouble Shooting and Logs
 
