@@ -21,7 +21,7 @@ public final class InitExecutor {
      * will immediately be interrupted and the application will exit.
      */
     public static void doInit() {
-        if (initialized.compareAndSet(false, true)) {
+        if (!initialized.compareAndSet(false, true)) {
             return;
         }
         try {
