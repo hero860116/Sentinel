@@ -7,9 +7,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.Constants;
 import com.alibaba.csp.sentinel.EntryType;
+import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.property.DynamicSentinelProperty;
 import com.alibaba.csp.sentinel.property.SentinelProperty;
 import com.alibaba.csp.sentinel.property.SimplePropertyListener;
@@ -76,6 +76,12 @@ public class SystemRuleManager {
         currentProperty.addListener(listener);
     }
 
+    /**
+     * Listen to the {@link SentinelProperty} for {@link SystemRule}s. The property is the source
+     * of {@link SystemRule}s. System rules can also be set by {@link #loadRules(List)} directly.
+     *
+     * @param property the property to listen.
+     */
     public static void register2Property(SentinelProperty<List<SystemRule>> property) {
         synchronized (listener) {
             currentProperty.removeListener(listener);

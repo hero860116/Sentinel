@@ -6,6 +6,13 @@ import java.util.concurrent.TimeUnit;
 
 import com.alibaba.csp.sentinel.log.RecordLog;
 
+/**
+ * A {@link DataSource} automatically fetches the backend data.
+ *
+ * @param <S> source data type
+ * @param <T> target data type
+ * @author Carpenter Lee
+ */
 public abstract class AutoRefreshDataSource<S, T> extends AbstractDataSource<S, T> {
 
     private ScheduledExecutorService service;

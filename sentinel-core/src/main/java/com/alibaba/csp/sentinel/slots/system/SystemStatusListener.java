@@ -39,9 +39,9 @@ public class SystemStatusListener implements Runnable {
                 sb.append("qps:").append(Constants.ENTRY_NODE.passQps()).append(";");
                 sb.append("rt:").append(Constants.ENTRY_NODE.avgRt()).append(";");
                 sb.append("thread:").append(Constants.ENTRY_NODE.curThreadNum()).append(";");
-                sb.append("success").append(Constants.ENTRY_NODE.successQps()).append(";");
+                sb.append("success:").append(Constants.ENTRY_NODE.successQps()).append(";");
                 sb.append("minRt:").append(Constants.ENTRY_NODE.minRt()).append(";");
-                sb.append("maxSuccess").append(Constants.ENTRY_NODE.maxSuccessQps()).append(";");
+                sb.append("maxSuccess:").append(Constants.ENTRY_NODE.maxSuccessQps()).append(";");
                 RecordLog.info(sb.toString());
             }
 

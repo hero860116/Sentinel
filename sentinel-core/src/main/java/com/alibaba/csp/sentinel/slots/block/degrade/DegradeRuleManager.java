@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alibaba.csp.sentinel.log.RecordLog;
-import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.csp.sentinel.context.Context;
+import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.node.DefaultNode;
 import com.alibaba.csp.sentinel.property.DynamicSentinelProperty;
 import com.alibaba.csp.sentinel.property.PropertyListener;
@@ -15,6 +14,7 @@ import com.alibaba.csp.sentinel.property.SentinelProperty;
 import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.util.StringUtil;
 
 /***
  * @author youji.zj
@@ -33,6 +33,12 @@ public class DegradeRuleManager {
         currentProperty.addListener(listener);
     }
 
+    /**
+     * Listen to the {@link SentinelProperty} for {@link DegradeRule}s. The property is the source
+     * of {@link DegradeRule}s. Degrade rules can also be set by {@link #loadRules(List)} directly.
+     *
+     * @param property the property to listen.
+     */
     public static void register2Property(SentinelProperty<List<DegradeRule>> property) {
         synchronized (listener) {
             currentProperty.removeListener(listener);
