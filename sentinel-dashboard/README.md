@@ -32,6 +32,8 @@ $ java -Dserver.port=8080 \
 |`Dcsp.sentinel.dashboard.server=localhost:8080`|向Sentinel客户端指定控制台的地址。|
 |`-Dproject.name=sentinel-dashboard`|向Sentinel指定本程序名称。|
 
+全部配置项参考[启动配置项](https://github.com/alibaba/Sentinel/wiki/%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E9%A1%B9)
+
 经过上述配置，控制台启动后会自动向自己发送心跳。程序启动后浏览器访问`localhost:8080`即可访问Sentinel控制台。
 
 ## 2. 客户端接入
