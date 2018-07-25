@@ -7,8 +7,6 @@ import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.SentinelRpcException;
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.Filter;
 import com.alibaba.dubbo.rpc.Invocation;
@@ -28,13 +26,12 @@ import com.alibaba.dubbo.rpc.RpcException;
  */
 @Activate(group = "provider")
 public class SentinelDubboProviderFilter extends AbstractDubboFilter implements Filter {
+
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        URL url = invoker.getUrl();
-        String application = url.getParameter(Constants.APPLICATION_KEY);
-        if (application == null) {
-            application = "";
-        }
+        // Get origin caller.
+        String application = DubboUtils.getApplication(invocation, "");
+
         Entry interfaceEntry = null;
         Entry methodEntry = null;
         try {
