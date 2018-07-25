@@ -19,6 +19,8 @@ public final class InitExecutor {
     /**
      * If one {@link InitFunc} throws an exception, the init process
      * will immediately be interrupted and the application will exit.
+     *
+     * The initialization will be executed only once.
      */
     public static void doInit() {
         if (!initialized.compareAndSet(false, true)) {
@@ -28,10 +30,13 @@ public final class InitExecutor {
             ServiceLoader<InitFunc> loader = ServiceLoader.load(InitFunc.class);
             List<OrderWrapper> initList = new ArrayList<OrderWrapper>();
             for (InitFunc initFunc : loader) {
+                RecordLog.info("[Sentinel InitExecutor] Found init func: " + initFunc.getClass().getCanonicalName());
                 insertSorted(initList, initFunc);
             }
             for (OrderWrapper w : initList) {
                 w.func.init();
+                RecordLog.info(String.format("[Sentinel InitExecutor] Initialized: %s with order %d",
+                    w.func.getClass().getCanonicalName(), w.order));
             }
         } catch (Exception ex) {
             RecordLog.info("[Sentinel InitExecutor] Init failed", ex);
