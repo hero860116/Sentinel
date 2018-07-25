@@ -1,5 +1,6 @@
 package com.alibaba.csp.sentinel.config;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
 import java.util.Properties;
@@ -51,25 +52,27 @@ public class SentinelConfig {
             }
             // We first retrieve the properties from the property file.
             String fileName = LogBase.getLogBaseDir() + appName + ".properties";
+            File file = new File(fileName);
+            if (file.exists()) {
+                RecordLog.info("read SentinelConfig from " + fileName);
+                FileInputStream fis = new FileInputStream(fileName);
+                Properties fileProps = new Properties();
+                fileProps.load(fis);
+                fis.close();
 
-            FileInputStream fis = new FileInputStream(fileName);
-            Properties fileProps = new Properties();
-            fileProps.load(fis);
-            fis.close();
-
-            for (Object key : fileProps.keySet()) {
-                SentinelConfig.setConfig((String)key, (String)fileProps.get(key));
-                try {
-                    String systemValue = System.getProperty((String)key);
-                    if (!StringUtil.isEmpty(systemValue)) {
-                        SentinelConfig.setConfig((String)key, systemValue);
+                for (Object key : fileProps.keySet()) {
+                    SentinelConfig.setConfig((String)key, (String)fileProps.get(key));
+                    try {
+                        String systemValue = System.getProperty((String)key);
+                        if (!StringUtil.isEmpty(systemValue)) {
+                            SentinelConfig.setConfig((String)key, systemValue);
+                        }
+                    } catch (Exception e) {
+                        RecordLog.info(e.getMessage(), e);
                     }
-                } catch (Exception e) {
-                    RecordLog.info(e.getMessage(), e);
+                    RecordLog.info(key + " value: " + SentinelConfig.getConfig((String)key));
                 }
-                RecordLog.info(key + " value: " + SentinelConfig.getConfig((String)key));
             }
-
         } catch (Throwable ioe) {
             RecordLog.info(ioe.getMessage(), ioe);
         }

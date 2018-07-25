@@ -148,8 +148,8 @@ app.controller('MetricCtl', ['$scope', '$stateParams', 'MetricService', '$interv
             }
           }
         });
-        chart.line().position('timestamp*passedQps').size(1).color('green');
-        chart.line().position('timestamp*blockedQps').size(1).color('blue');
+        chart.line().position('timestamp*passedQps').size(1).color('green').shape('smooth');
+        chart.line().position('timestamp*blockedQps').size(1).color('blue').shape('smooth');
         // chart.line().position('timestamp*rt').size(1).color('gray');
         G2.track(false);
         chart.render();

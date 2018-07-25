@@ -6,5 +6,11 @@ package com.alibaba.csp.sentinel.datasource;
  * @author leyou
  */
 public interface ConfigParser<S, T> {
+    /**
+     * Parse {@code source} to the target format.
+     *
+     * @param source the source.
+     * @return the target.
+     */
     T parse(S source);
 }

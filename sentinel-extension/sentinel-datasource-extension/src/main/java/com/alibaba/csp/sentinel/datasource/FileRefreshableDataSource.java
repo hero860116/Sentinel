@@ -9,10 +9,15 @@ import java.nio.charset.Charset;
 import com.alibaba.csp.sentinel.log.RecordLog;
 
 /**
- * 一个会自动刷新的基于文件的{@link DataSource}，默认刷新周期为3s、读缓存大小为1MB、字符集为utf-8。
- * 请确保配置文件大小不超过读缓存大小，否则超出长度的那部分将被自动忽略。
+ * <p>
+ * A {@link DataSource} based on file. This class will automatically fetches the backend file every 3 seconds.
+ * </p>
+ * <p>
+ * Limitations: default read buffer size is 1MB, if file size is greater than buffer size, exceeding bytes will
+ * be ignored. Default charset is UTF8.
+ * </p>
  *
- * @author leyou
+ * @author Carpenter Lee
  */
 public class FileRefreshableDataSource<T> extends AutoRefreshDataSource<String, T> {
 
@@ -26,10 +31,11 @@ public class FileRefreshableDataSource<T> extends AutoRefreshDataSource<String, 
     private File file;
 
     /**
-     * 创建一个默认刷新周期为3s, 读缓存大小为1MB, 字符集为utf-8的文件配置数据源。
+     * Create a file based {@link DataSource} whose read buffer size is 1MB, charset is UTF8,
+     * and read interval is 3 seconds.
      *
-     * @param file
-     * @param configParser
+     * @param file         the file to read.
+     * @param configParser the config parser.
      */
     public FileRefreshableDataSource(File file, ConfigParser<String, T> configParser) throws FileNotFoundException {
         this(file, configParser, DEFAULT_REFRESH_MS, DEFAULT_BUF_SIZE, DEFAULT_CHAR_SET);

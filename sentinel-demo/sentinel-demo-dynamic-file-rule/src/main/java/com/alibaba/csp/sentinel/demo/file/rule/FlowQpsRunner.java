@@ -1,24 +1,20 @@
-package com.alibaba.csp.sentinel.demo.flow;
+package com.alibaba.csp.sentinel.demo.file.rule;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.alibaba.csp.sentinel.util.TimeUtil;
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.util.TimeUtil;
 
 /**
- * @author jialiang.linjl
+ * Flow Rule demo.
+ *
+ * @author Carpenter Lee
  */
-public class FlowQpsDemo {
-
+class FlowQpsRunner {
     private static final String KEY = "abc";
 
     private static AtomicInteger pass = new AtomicInteger();
@@ -28,33 +24,9 @@ public class FlowQpsDemo {
     private static volatile boolean stop = false;
 
     private static final int threadCount = 1;
-
     private static int seconds = 60 + 40;
 
-    public static void main(String[] args) throws Exception {
-        tick();
-        // first make the system run on a very low condition
-        simulateTraffic();
-
-        System.out.println("===== begin to do flow control");
-        System.out.println("only 20 requests per second can pass");
-        initFlowQpsRule();
-
-    }
-
-    private static void initFlowQpsRule() {
-        List<FlowRule> rules = new ArrayList<FlowRule>();
-        FlowRule rule1 = new FlowRule();
-        rule1.setResource(KEY);
-        // set limit qps to 20
-        rule1.setCount(20);
-        rule1.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        rule1.setLimitApp("default");
-        rules.add(rule1);
-        FlowRuleManager.loadRules(rules);
-    }
-
-    private static void simulateTraffic() {
+    public void simulateTraffic() {
         for (int i = 0; i < threadCount; i++) {
             Thread t = new Thread(new RunTask());
             t.setName("simulate-traffic-Task");
@@ -62,14 +34,44 @@ public class FlowQpsDemo {
         }
     }
 
-    private static void tick() {
+    public void tick() {
         Thread timer = new Thread(new TimerTask());
         timer.setName("sentinel-timer-task");
         timer.start();
     }
 
-    static class TimerTask implements Runnable {
+    static final class RunTask implements Runnable {
+        @Override
+        public void run() {
+            while (!stop) {
+                Entry entry = null;
 
+                try {
+                    entry = SphU.entry(KEY);
+                    // token acquired, means pass
+                    pass.addAndGet(1);
+                } catch (BlockException e1) {
+                    block.incrementAndGet();
+                } catch (Exception e2) {
+                    // biz exception
+                } finally {
+                    total.incrementAndGet();
+                    if (entry != null) {
+                        entry.exit();
+                    }
+                }
+
+                Random random2 = new Random();
+                try {
+                    TimeUnit.MILLISECONDS.sleep(random2.nextInt(50));
+                } catch (InterruptedException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
+    static final class TimerTask implements Runnable {
         @Override
         public void run() {
             long start = System.currentTimeMillis();
@@ -110,37 +112,6 @@ public class FlowQpsDemo {
             System.out.println("total:" + total.get() + ", pass:" + pass.get()
                 + ", block:" + block.get());
             System.exit(0);
-        }
-    }
-
-    static class RunTask implements Runnable {
-        @Override
-        public void run() {
-            while (!stop) {
-                Entry entry = null;
-
-                try {
-                    entry = SphU.entry(KEY);
-                    // token acquired, means pass
-                    pass.addAndGet(1);
-                } catch (BlockException e1) {
-                    block.incrementAndGet();
-                } catch (Exception e2) {
-                    // biz exception
-                } finally {
-                    total.incrementAndGet();
-                    if (entry != null) {
-                        entry.exit();
-                    }
-                }
-
-                Random random2 = new Random();
-                try {
-                    TimeUnit.MILLISECONDS.sleep(random2.nextInt(50));
-                } catch (InterruptedException e) {
-                    // ignore
-                }
-            }
         }
     }
 }
