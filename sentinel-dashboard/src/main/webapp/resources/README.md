@@ -1,35 +1,32 @@
-# Sentinel-Admin
+# Sentinel-Dashboard
 
-## 环境要求
+## Env Requirement
 
 - Node.js > 6.x
 
-## 编码规范
+## Code Guide
 
-- HTML/CSS 遵循 Bootstrap 编码规范，参考：https://codeguide.bootcss.com/
-- JavaScript 遵循 Airbnb JavaScript Style Guide，参考：https://github.com/airbnb/javascript/tree/es5-deprecated/es5
+- Code Style Guide for HTML/CSS: https://codeguide.bootcss.com/
+- Airbnb JavaScript Style Guide: https://github.com/airbnb/javascript/tree/es5-deprecated/es5
 
-## 开发流程
-
-1、安装依赖
+## Install Packages
 
 ```
-npm i
+npm install
 ```
 
-2、开发环境构建
+## Start Development
 
 ```
 npm start
 ```
 
-3、生产环境构建
+## Build for production
 
 ```
 npm run build
 ```
 
-CREDIT:
+## CREDIT:
 
-[sb-admin-angular](https://github.com/start-angular/sb-admin-angular)
-
+- [sb-admin-angular](https://github.com/start-angular/sb-admin-angular)

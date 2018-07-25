@@ -50,7 +50,6 @@ const JS_APP = [
   'app/scripts/services/machineservice.js',
   'app/scripts/services/identityservice.js',
   'app/scripts/services/metricservice.js',
-  // 'app/scripts/page.js',
 ];
 
 gulp.task('lib', function () {
@@ -115,7 +114,9 @@ gulp.task('serve', ['build'], function () {
     port: 1234
   });
   // 打开浏览器
-  open('http://localhost:8080/index_dev.htm');
+  setTimeout(() => {
+    open('http://localhost:8080/index_dev.htm')
+  }, 200);
   // 监听
   gulp.watch(app.srcPath + '**/*.js', ['js']);
   gulp.watch(app.srcPath + '**/*.css', ['css']);
