@@ -6,7 +6,7 @@
 
 ## Documentation
 
-[中文](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D) for readme.
+See the [中文](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D) for readme.
 
 See the [Wiki](https://github.com/alibaba/Sentinel/wiki) for full documentation, examples, operational details and other information.
 
