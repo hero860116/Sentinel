@@ -57,8 +57,8 @@ public class SentinelGrpcServerInterceptorTest {
         ClusterNode clusterNode = ClusterBuilderSlot.getClusterNode(resourceName, EntryType.IN);
         assertNotNull(clusterNode);
 
-        assertEquals(total - threshold, clusterNode.blockedRequest() * 2);
-        assertEquals(total, clusterNode.totalRequest() * 2);
+        assertEquals((total - threshold) / 2, clusterNode.blockedRequest());
+        assertEquals(total / 2, clusterNode.totalRequest());
 
         long totalQps = clusterNode.totalQps();
         long passQps = clusterNode.passQps();
