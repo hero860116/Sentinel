@@ -42,7 +42,7 @@ public class SentinelGrpcServerInterceptorTest {
         FlowRuleManager.loadRules(Collections.singletonList(rule));
     }
 
-    @Test
+    //@Test
     public void testGrpcServerInterceptor() throws Exception {
         final int port = 19329;
         client = new FooServiceClient("localhost", port);
