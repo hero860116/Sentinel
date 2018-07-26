@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
@@ -26,6 +29,11 @@ public class PullConsumerDemo {
 
     private static final Map<MessageQueue, Long> OFFSET_TABLE = new HashMap<MessageQueue, Long>();
 
+    private static final ExecutorService pool = Executors.newFixedThreadPool(32);
+
+    private static final AtomicLong SUCCESS_COUNT = new AtomicLong(0);
+    private static final AtomicLong FAIL_COUNT = new AtomicLong(0);
+
     public static void main(String[] args) throws MQClientException {
         // First we init the flow control rule for Sentinel.
         initFlowControlRule();
@@ -41,7 +49,7 @@ public class PullConsumerDemo {
             while (true) {
                 try {
                     PullResult pullResult =
-                        consumer.pullBlockIfNotFound(mq, null, getMessageQueueOffset(mq), 100);
+                        consumer.pullBlockIfNotFound(mq, null, getMessageQueueOffset(mq), 32);
                     if (pullResult.getMsgFoundList() != null) {
                         for (MessageExt msg : pullResult.getMsgFoundList()) {
                             doSomething(msg);
@@ -73,40 +81,42 @@ public class PullConsumerDemo {
     }
 
     private static void doSomething(MessageExt message) {
-        Entry entry = null;
-        try {
-            ContextUtil.enter(KEY);
-            entry = SphU.entry(KEY, EntryType.OUT);
+        pool.submit(() -> {
+            Entry entry = null;
+            try {
+                ContextUtil.enter(KEY);
+                entry = SphU.entry(KEY, EntryType.OUT);
 
-            // Your business logic here.
-            System.out.printf("[%d][%s] Receive New Messages: %s %n", System.currentTimeMillis(),
-                Thread.currentThread().getName(), message);
-            System.out.println(new String(message.getBody()));
-        } catch (BlockException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (entry != null) {
-                entry.exit();
+                // Your business logic here.
+                System.out.printf("[%d][%s][Success: %d] Receive New Messages: %s %n", System.currentTimeMillis(),
+                    Thread.currentThread().getName(), SUCCESS_COUNT.addAndGet(1), new String(message.getBody()));
+            } catch (BlockException ex) {
+                // Blocked.
+                System.out.println("Blocked: " + FAIL_COUNT.addAndGet(1));
+            } finally {
+                if (entry != null) {
+                    entry.exit();
+                }
+                ContextUtil.exit();
             }
-            ContextUtil.exit();
-        }
+        });
     }
 
     private static void initFlowControlRule() {
         FlowRule rule = new FlowRule();
         rule.setResource(KEY);
-        // Max QPS is 2.
-        rule.setCount(2);
+        // Indicates the interval between two adjacent requests is 200 ms.
+        rule.setCount(5);
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
         rule.setLimitApp("default");
 
         // Enable rate limiting (uniform). Intervals between two incoming calls will be constant (1000/QPS ms).
-        // In this example, intervals between two incoming calls (message consumption) will be 500 ms constantly.
+        // In this example, intervals between two incoming calls (message consumption) will be 200 ms constantly.
         rule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER);
         // If more requests are coming, they'll be put into the waiting queue.
         // The queue has a queueing timeout. Requests that may exceed the timeout will be immediately blocked.
-        // In this example, the timeout is 10s.
-        rule.setMaxQueueingTimeMs(10 * 1000);
+        // In this example, the max timeout is 5s.
+        rule.setMaxQueueingTimeMs(5 * 1000);
         FlowRuleManager.loadRules(Collections.singletonList(rule));
     }
 

@@ -13,7 +13,7 @@ public class SyncProducer {
             DefaultMQProducer(Constants.TEST_GROUP_NAME);
         // Launch the instance.
         producer.start();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             // Create a message instance, specifying topic, tag and message body.
             Message msg = new Message(Constants.TEST_TOPIC_NAME, "TagA",
                 ("Hello RocketMQ From Sentinel " + i).getBytes(RemotingHelper.DEFAULT_CHARSET)
