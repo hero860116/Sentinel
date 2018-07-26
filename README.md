@@ -86,7 +86,8 @@ FlowRuleManager.loadRules(rules);
 
 ### 4. Check the Result
 
-After running the demo for a while, you can see the following records in `[user dir]\csp\logs\${appName}-metrics.log.xxx`.
+After running the demo for a while, you can see the following records in `~/logs/csp/${appName}-metrics.log.xxx`.
+
 ```
 |--timestamp-|------date time----|--resource-|p |block|s |e|rt
 1529998904000|2018-06-26 15:41:44|hello world|20|0    |20|0|0
@@ -103,12 +104,13 @@ This shows that the demo can print "hello world" 20 times per second.
 
 More examples and information can be found in the [How To Use](https://github.com/alibaba/Sentinel/wiki/How-to-Use) section.
 
-The working principles of Sentinel can be found in [How it works](https://github.com/alibaba/Sentinel/wiki/How-it-works)
+The working principles of Sentinel can be found in [How it works](https://github.com/alibaba/Sentinel/wiki/How-it-works) section.
 
 Samples can be found in the [demo](https://github.com/alibaba/Sentinel/tree/master/sentinel-demo) module.
 
 ### 5.Start Dashboard
-Sentinel also provides a simple dashboard, on which you can monitor the clients and configure the rules in real time.
+
+Sentinel also provides a simple dashboard application, on which you can monitor the clients and configure the rules in real time.
 
 For details please refer to [Dashboard](https://github.com/alibaba/Sentinel/wiki/Dashboard).
 
@@ -118,11 +120,11 @@ Sentinel will generate logs for troubleshooting. All the information can be foun
 
 ## Bugs and Feedback
 
-To report bugs, questions and discussions please submit [GitHub Issues](https://github.com/alibaba/sentinel/issues).
+For bug report, questions and discussions please submit [GitHub Issues](https://github.com/alibaba/sentinel/issues).
 
 Contact us: sentinel@linux.alibaba.com
 
 ## Contributing
 
-Contributions are welcomed! Please see (CONTRIBUTING)[https://github.com/alibaba/Sentinel/blob/master/CONTRIBUTING.md] for detailed guidelines.
+Contributions are always welcomed! Please see [CONTRIBUTING](https://github.com/alibaba/Sentinel/blob/master/CONTRIBUTING.md) for detailed guidelines.
 
