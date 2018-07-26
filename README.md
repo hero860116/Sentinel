@@ -4,18 +4,9 @@
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Gitter](https://badges.gitter.im/alibaba/Sentinel.svg)](https://gitter.im/alibaba/Sentinel)
 
-## Documentation
-
-See the [中文](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D) for readme.
-
-See the [Wiki](https://github.com/alibaba/Sentinel/wiki) for full documentation, examples, operational details and other information.
-
-See the [Javadoc](https://github.com/alibaba/Sentinel/tree/master/doc) for the API.
-
-
 ## What Does It Do?
 
-As distributed systems become increasingly popular, the stability between services is becoming more important than ever before. Sentinel takes "flow" as breakthrough point, and works on multiple fields including flow control, concurrency, circuit breaking, load protection, to protect service stability.
+As distributed systems become increasingly popular, the stability between services is becoming more important than ever before. Sentinel takes "flow" as breakthrough point, and works on multiple fields including **flow control**, **concurrency**, **circuit breaking** and **load protection**, to protect service stability.
 
 Sentinel has the following features:
 
@@ -28,7 +19,16 @@ Sentinel also provides real-time monitoring function. You can see the runtime in
 * **Easy extension point**:
 Sentinel provides easy-to-use extension points that allow you to quickly customize your logic, for example, custom rule management, adapting data sources, and so on.
 
+## Documentation
+
+See the [中文文档](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D) for Chinese readme.
+
+See the [Wiki](https://github.com/alibaba/Sentinel/wiki) for full documentation, examples, operational details and other information.
+
+See the [Javadoc](https://github.com/alibaba/Sentinel/tree/master/doc) for the API.
+
 ## "Hello world"
+
 Below is a simple demo that guides new users to use Sentinel in just 3 steps. It also shows how to monitor this demo using the dashboard.
 
 ### 1.Download Library
@@ -44,7 +44,7 @@ If your application is build in maven, just add the following code in pom.xml.
 </dependency>
 ```
 
-If not, you can download JAR in [maven](https://mvnrepository.com/artifact/com.alibaba).
+If not, you can download JAR in [Maven Center Repository](https://mvnrepository.com/artifact/com.alibaba).
 
 
 ### 2.Define Resource
@@ -121,4 +121,8 @@ Sentinel will generate logs for troubleshooting. All the information can be foun
 To report bugs, questions and discussions please submit [GitHub Issues](https://github.com/alibaba/sentinel/issues).
 
 Contact us: sentinel@linux.alibaba.com
+
+## Contributing
+
+Contributions are welcomed! Please see (CONTRIBUTING)[https://github.com/alibaba/Sentinel/blob/master/CONTRIBUTING.md] for detailed guidelines.
 
