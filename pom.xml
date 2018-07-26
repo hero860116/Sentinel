@@ -27,7 +27,7 @@
         <developer>
             <name>The Sentinel Project Contributors</name>
             <email>sentinel-dev@linux.alibaba.com</email>
-            <url>https://github.com/alibaba/</url>
+            <url>https://github.com/alibaba/Sentinel</url>
         </developer>
     </developers>
     <organization>
@@ -161,9 +161,31 @@
                         </executions>
                     </plugin>
                     <!-- GPG -->
-
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
         </profile>
     </profiles>
 

@@ -9,6 +9,7 @@
         <version>0.1.0</version>
     </parent>
     <artifactId>sentinel-transport</artifactId>
+    <description>The transport module of Sentinel</description>
 
     <modules>
         <module>sentinel-transport-common</module>
