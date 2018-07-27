@@ -125,7 +125,7 @@ public class PullConsumerDemo {
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
         rule.setLimitApp("default");
 
-        // Enable rate limiting (uniform). Intervals between two incoming calls will be constant (1000/QPS ms).
+        // Enable rate limiting (uniform). This can ensure fixed intervals between two adjacent calls.
         // In this example, intervals between two incoming calls (message consumption) will be 200 ms constantly.
         rule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER);
         // If more requests are coming, they'll be put into the waiting queue.
