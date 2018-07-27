@@ -44,11 +44,12 @@ If your application is build in maven, just add the following code in pom.xml.
 </dependency>
 ```
 
-If not, you can download JAR in [Maven Center Repository](https://mvnrepository.com/artifact/com.alibaba).
+If not, you can download JAR in [Maven Center Repository](https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-core).
 
 
 ### 2.Define Resource
-Wrap code snippet via Sentinel API: `SphU.entry("RESOURCENAME")` and `entry.exit()`. In below example, it is `System.out.println("hello world");`
+
+Wrap code snippet via Sentinel API: `SphU.entry("RESOURCENAME")` and `entry.exit()`. In below example, it is `System.out.println("hello world");`:
 
 ```java
 Entry entry = null;
