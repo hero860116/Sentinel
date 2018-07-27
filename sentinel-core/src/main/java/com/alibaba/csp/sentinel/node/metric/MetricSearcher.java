@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.alibaba.csp.sentinel.config.SentinelConfig;
@@ -218,7 +217,7 @@ public class MetricSearcher {
                     // read all
                     if (identity == null) {
                         list.add(node);
-                    } else if (node.getName().equals(identity)) {
+                    } else if (node.getResource().equals(identity)) {
                         list.add(node);
                     }
                 } else {

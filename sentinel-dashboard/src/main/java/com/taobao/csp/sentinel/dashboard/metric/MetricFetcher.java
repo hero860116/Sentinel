@@ -300,7 +300,7 @@ public class MetricFetcher {
                 /**
                  * aggregation metrics by app_resource_timeSecond, ignore ip and port.
                  */
-                String key = buildMetricKey(machine.getApp(), node.getName(), node.getTimestamp());
+                String key = buildMetricKey(machine.getApp(), node.getResource(), node.getTimestamp());
                 MetricEntity entity = map.get(key);
                 if (entity != null) {
                     entity.addPassedQps(node.getPassedQps());
@@ -317,7 +317,7 @@ public class MetricFetcher {
                     entity.setRtAndSuccessQps(node.getRt(), node.getSuccessQps());
                     entity.setException(node.getException());
                     entity.setCount(1);
-                    entity.setResource(node.getName());
+                    entity.setResource(node.getResource());
                     map.put(key, entity);
                 }
             } catch (Exception e) {

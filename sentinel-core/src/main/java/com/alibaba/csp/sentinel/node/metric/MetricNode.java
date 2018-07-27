@@ -28,7 +28,7 @@ public class MetricNode {
     private long exception;
     private long rt;
 
-    private String name;
+    private String resource;
 
     public long getTimestamp() {
         return timestamp;
@@ -78,12 +78,12 @@ public class MetricNode {
         this.rt = rt;
     }
 
-    public String getName() {
-        return name;
+    public String getResource() {
+        return resource;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     @Override
@@ -95,15 +95,15 @@ public class MetricNode {
             ", successQps=" + successQps +
             ", exception=" + exception +
             ", rt=" + rt +
-            ", name='" + name + '\'' +
+            ", resource='" + resource + '\'' +
             '}';
     }
 
     /**
-     * To formatting string. All "|" in {@link #name} will be replaced with "_", format is:
+     * To formatting string. All "|" in {@link #resource} will be replaced with "_", format is:
      * <br/>
      * <code>
-     * timestamp|name|passedQps|blockedQps|successQps|exception|rt
+     * timestamp|resource|passedQps|blockedQps|successQps|exception|rt
      * </code>
      *
      * @return string format of this.
@@ -111,7 +111,7 @@ public class MetricNode {
     public String toThinString() {
         StringBuilder sb = new StringBuilder();
         sb.append(timestamp).append("|");
-        String legalName = name.replaceAll("\\|", "_");
+        String legalName = resource.replaceAll("\\|", "_");
         sb.append(legalName).append("|");
         sb.append(passedQps).append("|");
         sb.append(blockedQps).append("|");
@@ -131,7 +131,7 @@ public class MetricNode {
         MetricNode node = new MetricNode();
         String[] strs = line.split("\\|");
         node.setTimestamp(Long.parseLong(strs[0]));
-        node.setName(strs[1]);
+        node.setResource(strs[1]);
         node.setPassedQps(Long.parseLong(strs[2]));
         node.setBlockedQps(Long.parseLong(strs[3]));
         node.setSuccessQps(Long.parseLong(strs[4]));
@@ -141,10 +141,10 @@ public class MetricNode {
     }
 
     /**
-     * To formatting string. All "|" in {@link MetricNode#name} will be replaced with "_", format is:
+     * To formatting string. All "|" in {@link MetricNode#resource} will be replaced with "_", format is:
      * <br/>
      * <code>
-     * timestamp|yyyy-MM-dd HH:mm:ss|name|passedQps|blockedQps|successQps|exception|rt\n
+     * timestamp|yyyy-MM-dd HH:mm:ss|resource|passedQps|blockedQps|successQps|exception|rt\n
      * </code>
      *
      * @return string format of this.
@@ -155,7 +155,7 @@ public class MetricNode {
         sb.delete(0, sb.length());
         sb.append(getTimestamp()).append("|");
         sb.append(df.format(new Date(getTimestamp()))).append("|");
-        String legalName = getName().replaceAll("\\|", "_");
+        String legalName = getResource().replaceAll("\\|", "_");
         sb.append(legalName).append("|");
         sb.append(getPassedQps()).append("|");
         sb.append(getBlockedQps()).append("|");
@@ -177,7 +177,7 @@ public class MetricNode {
         Long time = Long.parseLong(strs[0]);
         MetricNode node = new MetricNode();
         node.setTimestamp(time);
-        node.setName(strs[2]);
+        node.setResource(strs[2]);
         node.setPassedQps(Long.parseLong(strs[3]));
         node.setBlockedQps(Long.parseLong(strs[4]));
         node.setSuccessQps(Long.parseLong(strs[5]));

@@ -45,7 +45,7 @@ public class MetricTimerListener implements Runnable {
             for (Entry<Long, MetricNode> entry : metrics.entrySet()) {
                 long time = entry.getKey();
                 MetricNode metricNode = entry.getValue();
-                metricNode.setName(name);
+                metricNode.setResource(name);
                 if (maps.get(time) == null) {
                     maps.put(time, new ArrayList<MetricNode>());
                 }
