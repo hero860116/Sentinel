@@ -11,7 +11,7 @@ As distributed systems become increasingly popular, the stability between servic
 Sentinel has the following features:
 
 * **Rich applicable scenarios**:
-Sentinel has been wildly used in Alibaba, and has covered almost all the core-scenarios in Double -11 Shopping Festivals in the past 10 years, such as “Second Kill” which needs to limit burst flow traffic to meet the system capacity, message peak clipping and valley fills, degrading un reliable downstream applications, etc.
+Sentinel has been wildly used in Alibaba, and has covered almost all the core-scenarios in Double-11 Shopping Festivals in the past 10 years, such as “Second Kill” which needs to limit burst flow traffic to meet the system capacity, message peak clipping and valley fills, degrading unreliable downstream applications, etc.
 
 * **Integrated monitor module**:
 Sentinel also provides real-time monitoring function. You can see the runtime information of a single machine in real-time, and the summary runtime info of a cluster with less than 500 nodes.
@@ -27,11 +27,12 @@ See the [Wiki](https://github.com/alibaba/Sentinel/wiki) for full documentation,
 
 See the [Javadoc](https://github.com/alibaba/Sentinel/tree/master/doc) for the API.
 
-## "Hello world"
+## Quick Start
 
 Below is a simple demo that guides new users to use Sentinel in just 3 steps. It also shows how to monitor this demo using the dashboard.
 
 ### 1.Download Library
+
 **Note:** Sentinel requires Java 6 or later.
 
 If your application is build in maven, just add the following code in pom.xml.
@@ -72,6 +73,7 @@ try {
 So far the code modification is done.  
 
 ### 3.Define Rules
+
 If we want to limit the access times of the resource, we can define rules. The following code defines a rule that limits access to the reource to 20 times per second at the maximum. 
 
 ```java
@@ -83,7 +85,6 @@ rule.setCount(20);
 rules.add(rule);
 FlowRuleManager.loadRules(rules);
 ```
-
 
 ### 4. Check the Result
 
@@ -98,8 +99,7 @@ After running the demo for a while, you can see the following records in `~/logs
 1529998908000|2018-06-26 15:41:48|hello world|20|19502|20|0|0
 1529998909000|2018-06-26 15:41:49|hello world|20|18386|20|0|0
 
-p stands for incoming request, block for intercepted by rules, success for success handled, e for exception, rt for average response time(ms)
-
+p stands for incoming request, block for intercepted by rules, success for success handled, e for exception, rt for average response time (ms)
 ```
 This shows that the demo can print "hello world" 20 times per second.
 
@@ -107,7 +107,7 @@ More examples and information can be found in the [How To Use](https://github.co
 
 The working principles of Sentinel can be found in [How it works](https://github.com/alibaba/Sentinel/wiki/How-it-works) section.
 
-Samples can be found in the [demo](https://github.com/alibaba/Sentinel/tree/master/sentinel-demo) module.
+Samples can be found in the [sentinel-demo](https://github.com/alibaba/Sentinel/tree/master/sentinel-demo) module.
 
 ### 5.Start Dashboard
 
@@ -127,5 +127,5 @@ Contact us: sentinel@linux.alibaba.com
 
 ## Contributing
 
-Contributions are always welcomed! Please see [CONTRIBUTING](https://github.com/alibaba/Sentinel/blob/master/CONTRIBUTING.md) for detailed guidelines.
+Contributions are always welcomed! Please see [CONTRIBUTING](./CONTRIBUTING.md) for detailed guidelines.
 
